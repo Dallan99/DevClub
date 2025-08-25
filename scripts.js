@@ -6,7 +6,7 @@ let produtos = [
         preco: 7999,
         precoOriginal: 8999,
         desconto: 11,
-        imagem: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
         descricao: "Smartphone Apple com câmera avançada"
     },
     {
@@ -16,7 +16,7 @@ let produtos = [
         preco: 8999,
         precoOriginal: 10999,
         desconto: 18,
-        imagem: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",
         descricao: "Notebook Apple ultrafino e potente"
     },
     {
@@ -26,7 +26,7 @@ let produtos = [
         preco: 1899,
         precoOriginal: 2299,
         desconto: 17,
-        imagem: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=400",
         descricao: "Fones sem fio com cancelamento de ruído"
     },
     {
@@ -36,7 +36,7 @@ let produtos = [
         preco: 5499,
         precoOriginal: 6299,
         desconto: 13,
-        imagem: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400",
         descricao: "Smartphone Samsung com tela AMOLED"
     },
     {
@@ -46,7 +46,7 @@ let produtos = [
         preco: 3299,
         precoOriginal: 3799,
         desconto: 13,
-        imagem: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=400",
         descricao: "Relógio inteligente com monitoramento"
     },
     {
@@ -56,7 +56,7 @@ let produtos = [
         preco: 499,
         precoOriginal: null,
         desconto: null,
-        imagem: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400",
         descricao: "Teclado mecânico RGB para gamers"
     },
     {
@@ -66,7 +66,7 @@ let produtos = [
         preco: 2499,
         precoOriginal: 2999,
         desconto: 17,
-        imagem: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400",
         descricao: "Fone com cancelamento de ruído"
     },
     {
@@ -76,21 +76,28 @@ let produtos = [
         preco: 7999,
         precoOriginal: null,
         desconto: null,
-        imagem: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=400" ,
+        imagem: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=400",
         descricao: "Notebook Windows premium"
     }
 ];
 
 let containerProdutos = document.querySelector(".produtos-container");
+let inputPesquisa = document.querySelector(".input-pesquisa");
+let textoInput = "";
+let todosBotoes = document.querySelectorAll(".botao-categoria");
+let categoria = "todos";
 
-
-function mostrarProdutos(){
+function mostrarProdutos() {
     let htmlProdutos = ""
-
 
     produtos.forEach(prd => {
 
-       htmlProdutos = htmlProdutos + `
+        if (prd.nome.toLowerCase().includes(textoInput.toLowerCase())) {
+            if (prd.categoria === categoria || categoria === "todos") {
+                // includes - inclui o que está no input
+                // toLowerCase - ele transforma tudo em letra minúscula        
+                // colocar o produto na tela
+                htmlProdutos = htmlProdutos + `
            <div class="cartao-produto">
                <img src="${prd.imagem}" class="imagem-produto">
                <div class="info-produto">
@@ -101,10 +108,30 @@ function mostrarProdutos(){
                </div>
            </div>
        `
+            }
+        }
     })
 
     containerProdutos.innerHTML = htmlProdutos;
 
 }
- mostrarProdutos(); //importante, chama a função para mostrar os produtos
+mostrarProdutos(); //importante, chama a função para mostrar os produtos
 
+function pesquisar() {
+    textoInput = inputPesquisa.value; // .value - ele mostra somente o valor, não letra por letra
+
+    mostrarProdutos()
+}
+
+inputPesquisa.addEventListener("input", pesquisar) //addeventlistener - ele é responsável por ler o input pesquisa
+
+todosBotoes.forEach(botao => {
+    botao.addEventListener("click", function () {
+        categoria = botao.getAttribute("data-categoria");
+
+        todosBotoes.forEach(b => b.classList.remove("ativo"))
+        botao.classList.add("ativo");
+
+        mostrarProdutos();
+    })
+})
