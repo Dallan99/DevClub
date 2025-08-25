@@ -3,6 +3,7 @@
 Este é um projeto desenvolvido durante o **Bootcamp do DevClub**, com o
 objetivo de praticar HTML, CSS e JavaScript construindo uma aplicação de
 **vitrine de e-commerce** moderna e responsiva.
+Acesse o site - https://dallan99.github.io/DevClub/
 
 ## 🚀 Funcionalidades
 
